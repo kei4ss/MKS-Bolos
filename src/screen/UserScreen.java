@@ -130,18 +130,20 @@ public class UserScreen {
         while(true) {
             System.out.print("-> ");
             Integer response = ManualData.getInt();
-            switch (response){
-                case 1:
-                    Cliente newCliente = new Cliente();
-                    newCliente.setCpf(cpf);
-                    insertNewClient(newCliente);
-                    return;
-                case 2:
-                    return;
-                default:
-                    System.out.println("Opção inválida");
-                    break;
+            if(response != null) {
+                switch (response) {
+                    case 1:
+                        Cliente newCliente = new Cliente();
+                        newCliente.setCpf(cpf);
+                        insertNewClient(newCliente);
+                        return;
+                    case 2:
+                        return;
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
 
+                }
             }
         }
 
@@ -172,25 +174,27 @@ public class UserScreen {
         while(true) {
             System.out.print("-> ");
             Integer response = ManualData.getInt();
-            switch (response){
-                case 1:
-                    if(ClienteDAO.insertCLiente(newCliente)){
-                        System.out.print("Cadastro feito com sucesso. ");
-                        System.out.printf("Agradecemos por escolher nosso sistema, %s! \n", newCliente.getName());
-                        System.out.println("[APERTE ENTER PARA CONTINUAR]");
-                        ManualData.getString();
-                        cliente = newCliente;
-                        menu();
+            if(response != null) {
+                switch (response) {
+                    case 1:
+                        if (ClienteDAO.insertCLiente(newCliente)) {
+                            System.out.print("Cadastro feito com sucesso. ");
+                            System.out.printf("Agradecemos por escolher nosso sistema, %s! \n", newCliente.getName());
+                            System.out.println("[APERTE ENTER PARA CONTINUAR]");
+                            ManualData.getString();
+                            cliente = newCliente;
+                            menu();
+                            return;
+                        }
+                    case 2:
+                        System.out.println("Ok, vamos tentar novamente");
+                        insertNewClient(newCliente);
                         return;
-                    }
-                case 2:
-                    System.out.println("Ok, vamos tentar novamente");
-                    insertNewClient(newCliente);
-                    return;
-                default:
-                    System.out.println("Opção inválida");
-                    break;
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
 
+                }
             }
         }
 
